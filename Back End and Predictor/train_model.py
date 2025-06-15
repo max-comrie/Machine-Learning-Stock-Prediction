@@ -24,12 +24,12 @@ def train_model(ticker):
     df["Price Movement"] = np.where(df["1_day_pct_change"] > 0, 1, 0)
     df.dropna(inplace=True)
 
-    features = df.columns.tolist()
 
     scaler = MinMaxScaler()
-    df[features] = scaler.fit_transform(df[features])
+    feature_cols = [col for col in df.columns if col != "Price Movement"]
+    df[feature_cols] = scaler.fit_transform(df[feature_cols])
 
-    X, y = create_sequences(df, features)
+    X, y = create_sequences(df, feature_cols)
     X_train, X_test, y_train, y_test = train_test_split(X, y, shuffle=False, test_size=0.2)
 
     model = Sequential([
@@ -67,6 +67,7 @@ def train_model(ticker):
 
     joblib.dump(scaler, "models/scaler.pkl")
     joblib.dump(rf_model, "models/stock_predictor_final_model.pkl")
+    joblib.dump(feature_cols, "models/feature_cols.pkl")
     feature_extractor.save("models/lstm_feature_extractor.keras")
     print("✅ Models saved.")
 

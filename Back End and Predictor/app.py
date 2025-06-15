@@ -21,12 +21,6 @@ def predict():
     if not ticker:
         return jsonify({"error": "Ticker is required"}), 400
 
-    error, status_code = fetch_stock_data_polygon(ticker)
-    if status_code == 500:
-        error_message = error
-    else:
-        error_message = None
-
     result = predict_price(ticker, scaler, feature_extractor, rf_model)
     if result is None:
         return jsonify({"error": "Not enough data"}), 400
@@ -37,7 +31,6 @@ def predict():
         "confidence": result.get('confidence'),
         "timestamp": result.get('timestamp'),
         "history": result.get('history', []),
-        "error_message": error_message
     })
 
 if __name__ == '__main__':

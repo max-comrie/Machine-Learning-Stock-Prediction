@@ -1,1 +1,0 @@
-NOTE: These two programs are in the same file for compatibility (we need to import the predictor into the back end)
