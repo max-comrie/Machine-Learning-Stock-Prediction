@@ -71,5 +71,4 @@ def train_model(ticker):
     feature_extractor.save("models/lstm_feature_extractor.keras")
     print("✅ Models saved.")
 
-if __name__ == "__main__":
-    train_model("SPY")
+
