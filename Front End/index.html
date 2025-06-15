@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Lookup</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+        background-color: #f4f4f4;
+      }
+
+      input,
+      button {
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+
+      #result {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      #viewDetailsBtn {
+        margin-top: 12px;
+      }
+
+      /* ✅ Fix: modal should NOT show by default */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        width: 75vw;
+        height: 75vh;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 2rem;
+        position: relative;
+        overflow-y: auto;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .close {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #888;
+        cursor: pointer;
+      }
+
+      .close:hover {
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Stock Price Predictor</h1>
+
+    <form id="stockForm">
+      <input
+        type="text"
+        id="stockSymbol"
+        placeholder="Enter stock symbol (e.g., AAPL)"
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+
+    <div id="result">
+      Stock info will appear here.
+      <br />
+      <button id="viewDetailsBtn" style="display: none">View Details</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="stockModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Stock Prediction Details</h2>
+        <p id="modalContent">Loading...</p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
