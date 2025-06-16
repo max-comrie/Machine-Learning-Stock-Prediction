@@ -90,7 +90,7 @@ form.addEventListener("submit", function (event) {
     })
     .catch((err) => {
       console.error(err);
-      resultDiv.innerText = "Something went wrong.";
+      resultDiv.innerText = "Something went wrong";
       viewDetailsBtn.style.display = "none";
     });
 });
