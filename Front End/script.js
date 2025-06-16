@@ -61,14 +61,19 @@ form.addEventListener("submit", function (event) {
         return;
       }
 
+      // Calculate display confidence
+      const conf = data.confidence;
+      const displayConf = conf >= 0.5 ? conf.toFixed(2) : (1 - conf).toFixed(2);
+      const confPercent = (displayConf * 100).toFixed(0) + "%";
+
       const nextTradeDay = getNextTradingDay(new Date());
       const nextTradeStr = formatDate(nextTradeDay);
 
       let directionText;
       if (data.predicted_price === 1) {
-        directionText = `${data.ticker} is predicted to go up on the next trading day (${nextTradeStr}).`;
+        directionText = `${data.ticker} is predicted to go up on the next trading day (${nextTradeStr})`;
       } else {
-        directionText = `${data.ticker} is predicted to go down on the next trading day (${nextTradeStr}).`;
+        directionText = `${data.ticker} is predicted to go down on the next trading day (${nextTradeStr})`;
       }
 
       resultDiv.innerHTML = `${directionText}<br />`;
@@ -78,7 +83,7 @@ form.addEventListener("submit", function (event) {
       lastPrediction = `
         <strong>Symbol:</strong> ${data.ticker}<br />
         <strong>Prediction:</strong> ${directionText}<br />
-        <strong>Confidence:</strong> ${data.confidence.toFixed(2)}<br />
+        <strong>Confidence:</strong> ${confPercent}<br />
         <strong>Timestamp:</strong> ${data.timestamp}<br /><br />
         ${renderChart((data.history || []).slice(-50), "Last 50 Days", true)}
       `;
